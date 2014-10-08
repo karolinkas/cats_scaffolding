@@ -1,31 +1,29 @@
-<ul>
-			<% @cats.each do |cat| %>
+<% @cats.each do |cat| %>
 
-			<li>
+  <li>
 
-				<%= cat.name %>
+    <%= cat.name %>
 
-				<span class='birthday'>
+    <span class='birthday'>
 
-				<%= cat.birthday.to_s(:short) %>
+      <!-- Only format the date if birth_date exists -->
+      <%= cat.birthday.to_s(:short) if cat.birthday %>
 
-				</span>
+    </span>
 
+    <span class='actions'>
+      <%= link_to "More Info", cat_path(cat) %>
+      <%= link_to "Delete", cat_path(cat), method: :delete,
+                                  data: { confirm: "Are you sure?" }%>
+    </span>
 
-				<span class="actions">
-					<%= link_to "edit", edit_cat_path(cat) %>
-					<%= link_to "remove", cat_path(cat), method: :delete, 
-					data: { confirm: 'Sure?' } %> 
+    <strong>
+      <!-- Check if it has no owner, display it -->
+      <%= cat.owner.nil? ? "No Owner" :
 
+                           link_to("Has an owner", cat.owner) %>
+    </strong>
 
-				</span>
+  </li>
 
-
-        <%= cat.owner.nil? ? "No owner" : "Has an owner" %>
-
-				</li>
-
-				<% end %>
-
-	</ul>
-
+<% end %>

@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   
 
-  resources :owners
+  
 
   root 'home#index'
   get '/cats/search', to: 'cats#search'
   resources :cats
+  resources :owners
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
